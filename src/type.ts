@@ -72,6 +72,9 @@ export interface BaseSettings extends RadarContribSettings, PieLangSettings {
     
     // Whether to show the pie chart and radar chart
     showCharts?: boolean;
+    
+    // Whether to show the stats (contributions count, stars, forks) and date display
+    showStats?: boolean;
 
     l10n?: {
         commit: string;
