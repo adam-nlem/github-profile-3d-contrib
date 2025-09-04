@@ -69,6 +69,9 @@ export interface BaseSettings extends RadarContribSettings, PieLangSettings {
     growingAnimation?: boolean;
 
     fileName?: string;
+    
+    // Whether to show the pie chart and radar chart
+    showCharts?: boolean;
 
     l10n?: {
         commit: string;

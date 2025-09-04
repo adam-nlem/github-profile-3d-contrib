@@ -97,6 +97,32 @@ export const createSvg = (
             isForcedAnimation,
         );
 
+        // Only show charts if showCharts is not explicitly set to false
+        if (settings.showCharts !== false) {
+            // radar chart
+            radar.createRadarContrib(
+                svg,
+                userInfo,
+                radarX,
+                70,
+                radarWidth,
+                radarHeight,
+                settings,
+                isForcedAnimation,
+            );
+
+            // pie chart
+            pie.createPieLanguage(
+                svg,
+                userInfo,
+                40,
+                height - pieHeight - 70,
+                pieWidth,
+                pieHeight,
+                settings,
+                isForcedAnimation,
+            );
+        }
 
         const group = svg.append('g');
 
