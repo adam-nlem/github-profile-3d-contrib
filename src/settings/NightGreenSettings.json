@@ -3,7 +3,7 @@
   "backgroundColor": "transparent",
   "showCharts": false,
   "showStats": false,
-  "straightCalendar": true,
+
   "foregroundColor": "#eeeeff",
   "strongColor": "rgb(255,200,55)",
   "weakColor": "#aaaaaa",
