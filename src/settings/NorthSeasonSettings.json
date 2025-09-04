@@ -1,6 +1,8 @@
 {
   "type": "season",
-  "backgroundColor": "#ffffff",
+  "backgroundColor": "transparent",
+  "showCharts": false,
+  "showStats": false,
   "foregroundColor": "#00000f",
   "strongColor": "#111133",
   "weakColor": "gray",

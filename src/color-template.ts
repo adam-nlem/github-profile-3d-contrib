@@ -29,6 +29,3 @@ export const NightRainbowSettings =
 
 import gitBlockSettings from './settings/GitBlockSettings.json';
 export const GitBlockSettings = gitBlockSettings as type.BitmapPatternSettings;
-
-import customNoChartsSettings from './settings/CustomNoChartsSettings.json';
-export const CustomNoChartsSettings = customNoChartsSettings as type.NormalColorSettings;

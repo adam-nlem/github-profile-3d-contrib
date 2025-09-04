@@ -106,11 +106,6 @@ export const main = async (): Promise<void> => {
                 create.createSvg(userInfo, template.GitBlockSettings, true),
             );
 
-            // No charts version
-            f.writeFile(
-                'profile-no-charts.svg',
-                create.createSvg(userInfo, template.CustomNoChartsSettings, true),
-            );
         }
     } catch (error) {
         console.error(error);
