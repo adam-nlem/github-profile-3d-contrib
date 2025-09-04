@@ -191,9 +191,8 @@ export const create3DContrib = (
     const dxx = dx * 0.9;
     const dyy = dy * 0.9;
 
-    // Calculate positioning for the calendar (centered)
-    const offsetX = (width - weekcount * dx) / 2; // Center horizontally
-    const offsetY = (height - 7 * dy) / 2; // Center vertically
+    const offsetX = dx * 7;
+    const offsetY = height - (weekcount + 7) * dy;
 
     const group = svg.append('g');
 
@@ -201,9 +200,8 @@ export const create3DContrib = (
         const dayOfWeek = cal.date.getUTCDay(); // sun = 0, mon = 1, ...
         const week = Math.floor(diffDate(startTime, cal.date.getTime()) / 7);
 
-        // Position in a regular grid (straight calendar)
-        const baseX = offsetX + week * dx;
-        const baseY = offsetY + dayOfWeek * dy;
+        const baseX = offsetX + (week - dayOfWeek) * dx;
+        const baseY = offsetY + (week + dayOfWeek) * dy;
         // ref. https://github.com/yoshi389111/github-profile-3d-contrib/issues/27
         const calHeight = Math.log10(cal.contributionCount / 20 + 1) * 144 + 3;
         const contribLevel = cal.contributionLevel;
@@ -247,7 +245,9 @@ export const create3DContrib = (
             .attr('height', util.toFixed(widthTop))
             .attr(
                 'transform',
-                `skewY(${-ANGLE}) scale(${util.toFixed(dxx / widthTop)} ${util.toFixed(
+                `skewY(${-ANGLE}) skewX(${util.toFixed(
+                    atan(dxx / 2 / dyy),
+                )}) scale(${util.toFixed(dxx / widthTop)} ${util.toFixed(
                     (2 * dyy) / widthTop,
                 )})`,
             );
