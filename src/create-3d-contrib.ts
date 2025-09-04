@@ -191,10 +191,31 @@ export const create3DContrib = (
     const dxx = dx * 0.9;
     const dyy = dy * 0.9;
 
-    const offsetX = dx * 7;
-    const offsetY = height - (weekcount + 7) * dy;
+    const offsetX = (width - weekcount * dx) / 2; // Center horizontally
+    const offsetY = (height - 7 * dy) / 2; // Center vertically
 
     const group = svg.append('g');
+    
+    // Add title with calendar icon
+    const titleGroup = svg.append('g')
+        .attr('transform', `translate(20, 30)`);
+    
+    // Calendar icon (simplified calendar symbol)
+    titleGroup.append('path')
+        .attr('d', 'M2,4 L18,4 L18,18 L2,18 Z M2,8 L18,8 M6,4 L6,2 M14,4 L14,2 M5,11 L7,11 M9,11 L11,11 M13,11 L15,11 M5,14 L7,14 M9,14 L11,14 M13,14 L15,14')
+        .attr('stroke', '#1f6feb')
+        .attr('fill', 'none')
+        .attr('stroke-width', '1.5');
+    
+    // Title text
+    titleGroup.append('text')
+        .attr('x', 24)
+        .attr('y', 14)
+        .attr('fill', '#1f6feb')
+        .attr('font-family', 'Arial, sans-serif')
+        .attr('font-size', '14px')
+        .attr('font-weight', 'bold')
+        .text('Contribution calendar');
 
     userInfo.contributionCalendar.forEach((cal) => {
         const dayOfWeek = cal.date.getUTCDay(); // sun = 0, mon = 1, ...
