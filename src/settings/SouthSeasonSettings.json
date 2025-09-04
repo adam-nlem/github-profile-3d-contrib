@@ -3,6 +3,7 @@
   "backgroundColor": "transparent",
   "showCharts": false,
   "showStats": false,
+  "straightCalendar": true,
   "foregroundColor": "#00000f",
   "strongColor": "#111133",
   "weakColor": "gray",

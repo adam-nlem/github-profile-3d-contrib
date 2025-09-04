@@ -75,6 +75,9 @@ export interface BaseSettings extends RadarContribSettings, PieLangSettings {
     
     // Whether to show the stats (contributions count, stars, forks) and date display
     showStats?: boolean;
+    
+    // Whether to show the calendar in straight orientation (not isometric)
+    straightCalendar?: boolean;
 
     l10n?: {
         commit: string;
