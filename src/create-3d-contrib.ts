@@ -190,10 +190,9 @@ export const create3DContrib = (
     const weekcount = Math.ceil(userInfo.contributionCalendar.length / 7.0);
     const dxx = dx * 0.9;
     const dyy = dy * 0.9;
-    
-    // Calculate positioning for the calendar (centered)
-    const offsetX = (width - weekcount * dx) / 2; // Center horizontally
-    const offsetY = (height - 7 * dy) / 2; // Center vertically
+
+    const offsetX = dx * 7;
+    const offsetY = height - (weekcount + 7) * dy;
 
     const group = svg.append('g');
 
@@ -201,9 +200,8 @@ export const create3DContrib = (
         const dayOfWeek = cal.date.getUTCDay(); // sun = 0, mon = 1, ...
         const week = Math.floor(diffDate(startTime, cal.date.getTime()) / 7);
 
-        // Position in a regular grid (straight calendar)
-        const baseX = offsetX + week * dx;
-        const baseY = offsetY + dayOfWeek * dy;
+        const baseX = offsetX + (week - dayOfWeek) * dx;
+        const baseY = offsetY + (week + dayOfWeek) * dy;
         // ref. https://github.com/yoshi389111/github-profile-3d-contrib/issues/27
         const calHeight = Math.log10(cal.contributionCount / 20 + 1) * 144 + 3;
         const contribLevel = cal.contributionLevel;
@@ -219,7 +217,6 @@ export const create3DContrib = (
                 )})`,
             );
         if (isAnimate && contribLevel !== 0) {
-            // Animate from bottom to top
             bar.append('animateTransform')
                 .attr('attributeName', 'transform')
                 .attr('type', 'translate')
@@ -245,12 +242,14 @@ export const create3DContrib = (
             .attr('x', 0)
             .attr('y', 0)
             .attr('width', util.toFixed(widthTop))
-            .attr('height', util.toFixed(dxx))
+            .attr('height', util.toFixed(widthTop))
             .attr(
                 'transform',
-                `skewX(${-ANGLE}) scale(${util.toFixed(
-                    dxx / widthTop,
-                )} ${util.toFixed(dyy / dxx)})`,
+                `skewY(${-ANGLE}) skewX(${util.toFixed(
+                    atan(dxx / 2 / dyy),
+                )}) scale(${util.toFixed(dxx / widthTop)} ${util.toFixed(
+                    (2 * dyy) / widthTop,
+                )})`,
             );
 
         if (settings.type === 'normal') {
@@ -275,15 +274,13 @@ export const create3DContrib = (
             .attr('x', 0)
             .attr('y', 0)
             .attr('width', util.toFixed(widthLeft))
-            .attr('height', util.toFixed(heightLeft));
-            
-        // Maintain 3D effect for left panel
-        leftPanel.attr(
-            'transform',
-            `skewY(${ANGLE}) scale(${util.toFixed(
-                dxx / widthLeft,
-            )} ${util.toFixed(scaleLeft)})`,
-        );
+            .attr('height', util.toFixed(heightLeft))
+            .attr(
+                'transform',
+                `skewY(${ANGLE}) scale(${util.toFixed(
+                    dxx / widthLeft,
+                )} ${util.toFixed(scaleLeft)})`,
+            );
 
         if (settings.type === 'normal') {
             addNormalColor(leftPanel, contribLevel, 'left');
@@ -327,17 +324,15 @@ export const create3DContrib = (
             .attr('x', 0)
             .attr('y', 0)
             .attr('width', util.toFixed(widthRight))
-            .attr('height', util.toFixed(heightRight));
-            
-        // Maintain 3D effect for right panel
-        rightPanel.attr(
-            'transform',
-            `translate(${util.toFixed(dxx)} ${util.toFixed(
-                dyy,
-            )}) skewY(${-ANGLE}) scale(${util.toFixed(
-                dxx / widthRight,
-            )} ${util.toFixed(scaleRight)})`,
-        );
+            .attr('height', util.toFixed(heightRight))
+            .attr(
+                'transform',
+                `translate(${util.toFixed(dxx)} ${util.toFixed(
+                    dyy,
+                )}) skewY(${-ANGLE}) scale(${util.toFixed(
+                    dxx / widthRight,
+                )} ${util.toFixed(scaleRight)})`,
+            );
 
         if (settings.type === 'normal') {
             addNormalColor(rightPanel, contribLevel, 'right');
